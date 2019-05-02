@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>settings</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="w-100 order-1 order-md-0">
+            <ul class="navbar-nav mr-auto" style="margin-left: 10%">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#">psposter</a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-100 mx-auto order-0">
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control ml-auto" type="search" placeholder="Search user" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 mr-auto" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <a class="nav-link ml-auto" href="#">Upload</a>
+            <ul class="navbar-nav" style="margin-right: 10%">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Username
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Following</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <!--<div class="dropdown-divider"></div>-->
+                    </div>
+                </li>
+                <!--<li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li> -->
+            </ul>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    
+    <form action="/updateSettings" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h1 class="text-center display-4 my-4">Settings</h1>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input class="form-control ml-auto" type="text" placeholder="Username" aria-label="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input class="form-control ml-auto" type="text" placeholder="First Name" aria-label="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input class="form-control ml-auto" type="text" placeholder="Last Name" aria-label="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control ml-auto" type="password" placeholder="*****" aria-label="password">
+                    </div>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-md-3 ml-auto">
+                <button type="submit" value="Submit" class="btn btn-success btn-block">Save</button>
+            </div>
+            <div class="col-md-3 mr-auto my-1">
+                <a href="/">Cancel</a>
+            </div>
+        </div>
+    </form>
+    <hr>
+    <form onsubmit="return confirm('Do you really want to delete your account?');">
+        <div action="/deleteAccount" method="post" class="row">
+            <div class="col-md-6 m-auto">
+                <button type="submit" value="Submit" class="btn btn-danger btn-block">Delete Account</button>
+                <p>Warning: This action will delete the account and all photos associated with it</p>
+            </div>
+        </div>
+    </form>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Load photos -->
+    <script>
+        function getRandomSize(min, max) {
+            return Math.round(Math.random() * (max - min) + min);
+        }
+        var picturesToShow = "";
+        for (var i = 0; i < 25; i++) {
+            var width = getRandomSize(200, 400);
+            var height = getRandomSize(200, 400);
+            picturesToShow += '<img src="//www.lorempixel.com/' + width + '/' + height + '/cats" alt="pretty kitty">';
+        }
+        document.getElementById('profilePicture').src = '//www.lorempixel.com/200/200/cats';
+        document.getElementById('photos').innerHTML = picturesToShow;
+    </script>
+</body>
+
+</html>

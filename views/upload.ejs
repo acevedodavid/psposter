@@ -1,14 +1,101 @@
-<div class="container">
-        <div clsas="row">
-            <div class="col-md-6 m-auto">
-                <h1 class="text-center display-4 my-4">Username</h1>
-                <form action="/upload" method="post" enctype="multipart/form-data">
-                    <div class="custom-file mb-3">
-                        <input type="file" name="file" id="file" class="custom-file-input">
-                        <label for="file" class="custom-file-label">Choose File</label>
-                    </div>
-                    <input type="submit" value="Submit" class="btn btn-primary btn-block">
-                </form>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>upload</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="w-100 order-1 order-md-0">
+            <ul class="navbar-nav mr-auto" style="margin-left: 10%">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#">psposter</a>
+                </li>
+            </ul>
         </div>
+        <div class="w-100 mx-auto order-0">
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control ml-auto" type="search" placeholder="Search user" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 mr-auto" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <a class="nav-link ml-auto" href="#">Upload</a>
+            <ul class="navbar-nav" style="margin-right: 10%">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Username
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Following</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <!--<div class="dropdown-divider"></div>-->
+                    </div>
+                </li>
+                <!--<li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li> -->
+            </ul>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <div class="container">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6 m-auto">
+                    <h1 class="text-center display-4 my-4">Upload photo</h1>
+                        <div class="form-group">
+                            <div class="custom-file mb-3">
+                                <input type="file" name="file" id="file" class="custom-file-input">
+                                <label for="file" class="custom-file-label">Choose File</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" placeholder="Description" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input class="form-control ml-auto" type="text" placeholder="Location" aria-label="Location">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Date Taken</label>
+                            <input class="form-control ml-auto" type="text" placeholder="Date Taken" aria-label="dateTaken">
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="privateCheck">
+                          <label class="custom-control-label" for="privateCheck">Private</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="profilePictureCheck">
+                          <label class="custom-control-label" for="profilePictureCheck">Use as profile picture</label>
+                        </div>
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-md-3 ml-auto">
+                    <button type="submit" value="Submit" class="btn btn-primary btn-block">Upload</button>
+                </div>
+                <div class="col-md-3 mr-auto my-1">
+                    <a href="/">Cancel</a>
+                </div>
+            </div>
+        </form>
     </div>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
