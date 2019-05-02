@@ -138,45 +138,6 @@
         }
         loadUserInfo();
     </script>
-    <!-- <script>
-        var filename = //'ed8a8fa7e75af8e110cc3f6bc2006225.png';
-        function loadImageInfo() {
-            let url = './imageInfo/' + filename;
-            let settings = {
-                method : 'GET',
-                headers : {
-                    'Content-Type' : 'application/json'
-                }
-            };
-
-            fetch(url, settings)
-                .then(response => {
-                    if (response.ok){
-                        return response.json();
-                    }
-                    throw new Error(response.statusText);
-                })
-                .then(responseJSON => {
-                    if (responseJSON.description){
-                        document.getElementById('tbDescription').innerHTML = responseJSON.description;
-                    }
-                if (responseJSON.location){
-                    document.getElementById('tbLocation').value = responseJSON.location;
-                    }
-                if (responseJSON.date){
-                    document.getElementById('tbDate').value = responseJSON.date;
-                    }
-                if (responseJSON.private){
-                    document.getElementById('tbPrivate').value = responseJSON.private;
-                    }
-            }
-                     )
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-        loadImageInfo();
-    </script> -->
 </body>
 
 </html>

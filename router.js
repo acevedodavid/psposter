@@ -9,6 +9,7 @@ const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 const session = require('express-session');
 
+
 let uri = '/index';
 
 const user_model = require('./user_model');
@@ -438,15 +439,17 @@ router.post('/upload', upload.single('file'), (req,res) => {
 });
 
 router.get('/searchUsers', (req,res) => {
-    var myString = req.body.stringToSearch;
+    var myString = req.query.stringToSearch;
+    console.log(myString);
     if (myString) {
-        var query = { $or: [{username: myString}, {firstname: myString},{lastname: myString}] };
-        user_model.find(query, 'username, firstname, lastname', (err, foundUser) => {
+        var query = { username: myString };
+        user_model.find(query, (err, foundUsers) => {
             if (err) {
                 console.log(err);
                 return res.status(500).send('ERROR');
             } else {
-                console.log(foundUser);
+                console.log(foundUsers);
+                return res.render('search',{foundUsers});
             }
         });
     }

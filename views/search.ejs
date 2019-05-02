@@ -66,9 +66,9 @@
         <div class="row">
             <div class="col-md-6 m-auto">
                 <h1 class="text-center display-4 my-4">Search</h1>
-                <form class="form-inline my-2 my-lg-0">
-                    <input id="tbSearch" class="form-control ml-auto" type="search" placeholder="Search user" aria-label="Search">
-                    <button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0 mr-auto" type="">Search</button>
+                <form class="form-inline my-2 my-lg-0" action="/searchUsers" method="get" enctype="multipart/form-data">
+                    <input name="stringToSearch" id="tbSearch" class="form-control ml-auto" type="text" placeholder="Search user" aria-label="Search">
+                    <button id="btnSearch" class="btn btn-outline-success my-2 my-sm-0 mr-auto" type="submit" value="Submit">Search</button>
                 </form>
             </div>
         </div>
@@ -76,16 +76,16 @@
         <div class="row">
             <table class="table">
                 <tbody>
+                    <% if(foundUsers){ %>
+                        <% foundUsers.forEach(function(user) { %>
                     <tr>
-                        <td class="text-center" id="tProfilePicture"><h3>Profile Picture</h3></td>
-                        <td class="text-center" id="tUsername"><h3>Username</h3></td>
-                        <td class="text-center" id="tName"><h3>Name</h3></td>
+                        <a href="/user/<%= user.username %>">
+                        <td class="text-center" id="tProfilePicture"><h3><img src="image/<%= user.profilePicture %>" alt="" style="height: 100px;"></h3></td></a>
+                        <td class="text-center" id="tUsername"><h3><%= user.username %></h3></td>
+                        <td class="text-center" id="tName"><h3><%= user.firstname %> <% user.lastname %> </h3></td>
                     </tr>
-                    <tr>
-                        <td class="text-center" id="tProfilePicture"><h3>Profile Picture</h3></td>
-                        <td class="text-center" id="tUsername"><h3>Username</h3></td>
-                        <td class="text-center" id="tName"><h3>Name</h3></td>
-                    </tr>
+                        <% }); %>
+                    <% } %>
                 </tbody>
             </table>
         </div>
@@ -124,43 +124,6 @@
                 });
         }
         loadUserInfo();
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', init, false);
-        function init(){
-            console.log('got to init');
-            document.getElementById("btnSearch").addEventListener("click", function(event){
-            event.preventDefault();
-            console.log('im in search');
-            /*let stringToSearch = tbSearch.value;
-            let url = './searchUsers';
-            let settings = {
-                method : 'GET',
-                headers : {
-                    'Content-Type' : 'application/json'
-                },
-                body: {stringToSearch: stringToSearch}
-            };
-
-            fetch(url, settings)
-                .then(response => {
-                    if (response.ok){
-                        return response.json();
-                    }
-                    throw new Error(response.statusText);
-                })
-                .then(responseJSON => {
-                    if (responseJSON){
-                       for(var k in responseJSON) {
-                           console.log(k, responseJSON[k]);
-                        }
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                });*/
-        });
-        };
     </script>
 </body>
 
