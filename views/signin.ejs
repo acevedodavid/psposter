@@ -21,13 +21,13 @@
                         <!--<p class="text-success text-center">Some message goes here</p>
                         <a href="" class="float-right btn btn-outline-primary">Sign up</a>
                         -->
-                        <form>
+                        <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                     </div>
-                                    <input name="" class="form-control" placeholder="Username" type="text">
+                                    <input name="username" class="form-control" placeholder="Username" type="text">
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
                             <div class="form-group">
@@ -35,7 +35,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"> <i class="fa fa-lock"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="******" type="password">
+                                    <input name="password" class="form-control" placeholder="******" type="password">
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
                             <div class="form-group">

@@ -14,26 +14,29 @@
         <div class="w-100 order-1 order-md-0">
             <ul class="navbar-nav mr-auto" style="margin-left: 10%">
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#">psposter</a>
+                    <a class="navbar-brand" href="/">psposter</a>
                 </li>
             </ul>
         </div>
         <div class="w-100 mx-auto order-0">
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0" action="/search" method="get" enctype="application/x-www-form-urlencoded">
                 <input class="form-control ml-auto" type="search" placeholder="Search user" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0 mr-auto" type="submit">Search</button>
             </form>
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <a class="nav-link ml-auto" href="#">Upload</a>
+            <a class="nav-link ml-auto" href="/upload">Upload</a>
             <ul class="navbar-nav" style="margin-right: 10%">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="/" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Username
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Following</a>
-                        <a class="dropdown-item" href="#">Settings</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/following">Following</a>
+                        <a class="dropdown-item" href="/settings">Settings</a>
+                        <form action="/logout" method="get" enctype="application/x-www-form-urlencoded">
+                            <button class="dropdown-item" type="submit"> Log out </button>
+                        </form>
                         <!--<div class="dropdown-divider"></div>-->
                     </div>
                 </li>
@@ -53,29 +56,29 @@
                 <div class="col-md-6 m-auto">
                     <h1 class="text-center display-4 my-4">Upload photo</h1>
                         <div class="form-group">
-                            <div class="custom-file mb-3">
-                                <input type="file" name="file" id="file" class="custom-file-input">
-                                <label for="file" class="custom-file-label">Choose File</label>
+                            <div id="file_select" class="custom-file mb-3">
+                                <input type="file" name="file" id="file" class="custom-file-input" name="file">
+                                <label id="fileLabel"for="file" class="custom-file-label">Choose File</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" id="description" placeholder="Description" rows="3"></textarea>
+                            <textarea name="description" class="form-control" id="description" placeholder="Description" rows="3"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="location">Location</label>
-                            <input class="form-control ml-auto" type="text" placeholder="Location" aria-label="Location">
+                            <input name="location" class="form-control ml-auto" type="text" placeholder="Location" aria-label="Location">
                         </div>
                         <div class="form-group">
-                            <label for="location">Date Taken</label>
-                            <input class="form-control ml-auto" type="text" placeholder="Date Taken" aria-label="dateTaken">
+                            <label for="date">Date Taken</label>
+                            <input name="date" class="form-control ml-auto" type="text" placeholder="Date Taken" aria-label="dateTaken">
                         </div>
                         <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="privateCheck">
+                          <input name="private" type="checkbox" class="custom-control-input" id="privateCheck" value="false">
                           <label class="custom-control-label" for="privateCheck">Private</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="profilePictureCheck">
+                          <input type="checkbox" class="custom-control-input" id="profilePictureCheck" value="false">
                           <label class="custom-control-label" for="profilePictureCheck">Use as profile picture</label>
                         </div>
                 </div>
@@ -96,6 +99,43 @@
     <!-- Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Load username -->
+    <script>
+        var currentUsername = "";
+        function loadUserInfo() {
+            let url = './userInfo';
+            let settings = {
+                method : 'GET',
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            };
+
+            fetch(url, settings)
+                .then(response => {
+                    if (response.ok){
+                        return response.json();
+                    }
+                    throw new Error(response.statusText);
+                })
+                .then(responseJSON => {
+                    if (responseJSON.username){
+                       currentUsername = responseJSON.username; document.getElementById('userDropdown').innerHTML = responseJSON.username;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+        loadUserInfo();
+    </script>
+    <script>
+       document.getElementById('file').onchange = function () {
+           var fileName = this.value;
+           fileName = fileName.replace('C:\\fakepath\\','');
+           document.getElementById('fileLabel').innerHTML = fileName;
+       };
+    </script>
 </body>
 
 </html>

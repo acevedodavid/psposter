@@ -21,30 +21,23 @@
                         <!--<p class="text-success text-center">Some message goes here</p>
                         <a href="" class="float-right btn btn-outline-primary">Sign up</a>
                         -->
-                        <form>
-                            <div class="form-group">
-                                <label>Username</label>
-                                <input name="" class="form-control" placeholder="Username" type="text">
-                            </div> <!-- form-group// -->
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input name="" class="form-control" placeholder="First Name" type="text">
-                            </div> <!-- form-group// -->
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input name="" class="form-control" placeholder="Last Name" type="text">
-                            </div> <!-- form-group// -->
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input name="" class="form-control" placeholder="******" type="password">
-                            </div> <!-- form-group// -->
-                            <div class="form-group">
-                                <label>Confirm password</label>
-                                <input name="" class="form-control" placeholder="******" type="password">
-                            </div> <!-- form-group// -->
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block"> Register </button>
-                            </div> <!-- form-group// -->
+                        <form action="/register" method="post" enctype="application/x-www-form-urlencoded">
+                            <label>Username</label>
+                            <input name="username" class="form-control" placeholder="Username" type="text">
+                            <br>
+                            <label>First Name</label>
+                            <input name="firstname" class="form-control" placeholder="First Name" type="text">
+                            <br>
+                            <label>Last Name</label>
+                            <input name="lastname" class="form-control" placeholder="Last Name" type="text">
+                            <br>
+                            <label>Password</label>
+                            <input name="password" class="form-control" placeholder="******" type="password">
+                            <br>
+                            <label>Confirm password</label>
+                            <input name="confirmedpassword" class="form-control" placeholder="******" type="password">
+                            <br>
+                            <button type="submit" class="btn btn-primary btn-block"> Register </button>
                             <div class="row">
                                 <div class="col">
                                     <p>Already have an account? <a href="/signin">Sign in</a></p>

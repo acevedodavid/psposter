@@ -67,26 +67,29 @@
         <div class="w-100 order-1 order-md-0">
             <ul class="navbar-nav mr-auto" style="margin-left: 10%">
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#">psposter</a>
+                    <a class="navbar-brand" href="/">psposter</a>
                 </li>
             </ul>
         </div>
         <div class="w-100 mx-auto order-0">
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0" action="/search" method="get" enctype="application/x-www-form-urlencoded">
                 <input class="form-control ml-auto" type="search" placeholder="Search user" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0 mr-auto" type="submit">Search</button>
             </form>
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <a class="nav-link ml-auto" href="#">Upload</a>
+            <a class="nav-link ml-auto" href="/upload">Upload</a>
             <ul class="navbar-nav" style="margin-right: 10%">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="/" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Username
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Following</a>
-                        <a class="dropdown-item" href="#">Settings</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/following">Following</a>
+                        <a class="dropdown-item" href="/settings">Settings</a>
+                        <form action="/logout" method="get" enctype="application/x-www-form-urlencoded">
+                            <button class="dropdown-item" type="submit"> Log out </button>
+                        </form>
                         <!--<div class="dropdown-divider"></div>-->
                     </div>
                 </li>
@@ -103,11 +106,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 m-auto text-right">
-                    <img id="profilePicture" src="" alt="Profile Picture" style="border-radius: 50%; margin-top: 20px;">
+                    <img id="profilePicture" src="" alt="Profile Picture" style="border-radius: 50%; margin-top: 20px; width: 50%">
             </div>
             <div class="col-md-6 m-auto">
-                <h1 class="text-left display-4 my-4">Username</h1>
-                <h2 class="text-left display-6 my-4">First Name Last Name</h2>
+                <h1 id="usernameHeader"class="text-left display-4 my-4">Username</h1>
+                <h2 id="firstlastName"class="text-left display-6 my-4">First Name Last Name</h2>
                 <button type="submit" class="btn btn-primary"> Follow </button>
             </div>
         </div>
@@ -115,19 +118,35 @@
     
     <hr>
 
-    <section id="photos"></section>
+    <section id="photos">
+        <% if(files){ %>
+            <% if(photodetails){ %>
+                <% files.forEach(function(file) { %>
+                    <% photodetails.forEach(function(photo) { %>
+                        <% if(file.filename == photo.filename){ %>
+                            <a href='/photodetails/<%= file.filename %>'><img src="image/<%= file.filename %>" alt=""></a>
+                        <% } %>
+                    <% }); %>
+                <% }) %>
+            <% } else { %>
+                <p>No files to show</p>
+            <% } %>
+        <% } %>
+    </section>
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <!-- Load photos -->
+    <!--
     <script>
         function getRandomSize(min, max) {
             return Math.round(Math.random() * (max - min) + min);
         }
+        
+        
+        // Load photos
         var picturesToShow = "";
         for (var i = 0; i < 25; i++) {
             var width = getRandomSize(200, 400);
@@ -136,6 +155,59 @@
         }
         document.getElementById('profilePicture').src = '//www.lorempixel.com/200/200/cats';
         document.getElementById('photos').innerHTML = picturesToShow;
+    </script>-->
+    
+    <script>
+        /*
+        var picturesToShow = "";
+        var files = 
+        console.log('running files');
+        if(files) {
+            console.log('have files');
+          files.forEach(function(file) {
+              if(file.isImage) {
+                  picturesToShow += '<img src="image/' + file.filename + '" alt="myImage" >';
+              }
+          });
+        }
+        document.getElementById('profilePicture').src = '//www.lorempixel.com/200/200/cats';
+        document.getElementById('photos').innerHTML = picturesToShow; */
+    </script>
+    
+    <!-- Load username -->
+    <script>
+        var currentUsername = "";
+        console.log('wow');
+        function loadUserInfo() {
+            let url = './userInfo';
+            let settings = {
+                method : 'GET',
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            };
+
+            fetch(url, settings)
+                .then(response => {
+                    if (response.ok){
+                        return response.json();
+                    }
+                    throw new Error(response.statusText);
+                })
+                .then(responseJSON => {
+                    if (responseJSON.username){
+                       currentUsername = responseJSON.username; document.getElementById('userDropdown').innerHTML = responseJSON.username;
+                        document.getElementById('usernameHeader').innerHTML = responseJSON.username;
+                        document.getElementById('usernameHeader').innerHTML = responseJSON.username;
+                        document.getElementById('firstlastName').innerHTML = responseJSON.firstname + " " + responseJSON.lastname;
+                        document.getElementById('profilePicture').src = 'image/' + responseJSON.profilepicture;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+        loadUserInfo();
     </script>
 </body>
 
